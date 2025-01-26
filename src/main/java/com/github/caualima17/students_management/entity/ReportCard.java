@@ -18,5 +18,12 @@ public class ReportCard {
     private Long student_id;
     private String subject;
     private double grade;
-    private String semester;
+    private int semester;
+
+    public ReportCard(ReportCardRequestDTO data) {
+        this.student_id = data.student_id();
+        this.subject = data.subject();;
+        this.grade = data.grade();
+        this.semester = data.semester();
+    }
 }
