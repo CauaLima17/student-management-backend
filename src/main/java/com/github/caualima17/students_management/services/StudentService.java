@@ -6,6 +6,7 @@ import com.github.caualima17.students_management.entity.StudentResponseDTO;
 import com.github.caualima17.students_management.repositories.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,12 +28,20 @@ public class StudentService {
                         student.getName(),
                         student.getRegistration_id(),
                         student.getCourse()
-                )).orElseThrow(() -> new EntityNotFoundException("Nenhum estudante encontrado com o ID " + id));
+                )).orElseThrow(() -> new EntityNotFoundException("Nenhum estudante encontrado com o ID: " + id));
     }
 
     public void saveStudent(StudentRequestDTO data) {
         Student student = new Student(data);
         studentRepository.save(student);
         return;
+    }
+
+    public void deleteStudent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new EntityNotFoundException("Nenhum estudante encontrado com o ID: " + id);
+        }
+
+        studentRepository.deleteById(id);
     }
 }
