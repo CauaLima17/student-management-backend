@@ -1,0 +1,31 @@
+package com.github.caualima17.students_management.controllers;
+
+import com.github.caualima17.students_management.entity.StudentResponseDTO;
+import com.github.caualima17.students_management.services.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("students")
+public class StudentController {
+    @Autowired
+    private StudentService studentService;
+
+    @GetMapping
+    public ResponseEntity<List<StudentResponseDTO>> getAll() {
+        List<StudentResponseDTO> students = studentService.getAll();
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentResponseDTO> getById(@PathVariable Long id) {
+        StudentResponseDTO student = studentService.getById(id);
+        return ResponseEntity.ok(student);
+    }
+}
