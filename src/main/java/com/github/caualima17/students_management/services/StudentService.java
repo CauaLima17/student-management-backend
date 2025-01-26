@@ -37,6 +37,17 @@ public class StudentService {
         return;
     }
 
+    public void updateStudent(Long id, StudentRequestDTO data) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Nenhum " +
+                "estudante encontrado com o ID: " + id));
+
+        student.setName(data.name() == null ? student.getName() : data.name());
+        student.setRegistration_id(data.registration_id() == null ? student.getRegistration_id() : data.registration_id());
+        student.setCourse(data.course() == null ? student.getCourse() : data.course());
+        studentRepository.save(student);
+    }
+
     public void deleteStudent(Long id) {
         if (!studentRepository.existsById(id)) {
             throw new EntityNotFoundException("Nenhum estudante encontrado com o ID: " + id);
