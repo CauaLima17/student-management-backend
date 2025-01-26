@@ -29,4 +29,10 @@ public class StudentService {
                         student.getCourse()
                 )).orElseThrow(() -> new EntityNotFoundException("Nenhum estudante encontrado com o ID " + id));
     }
+
+    public void saveStudent(StudentRequestDTO data) {
+        Student student = new Student(data);
+        studentRepository.save(student);
+        return;
+    }
 }

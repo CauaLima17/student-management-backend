@@ -18,4 +18,10 @@ public class Student {
     private String name;
     private String registration_id;
     private String course;
+
+    public Student(StudentRequestDTO data) {
+        this.name = data.name();
+        this.registration_id = data.registration_id();
+        this.course = data.course();
+    }
 }
