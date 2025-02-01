@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Table (name = "student")
 @Entity
 @Getter
@@ -15,9 +17,12 @@ import lombok.Setter;
 public class Student {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @OneToMany(mappedBy = "student")
+    private List<ReportCard> reportCard;
     private String name;
     private String registration_id;
     private String course;
+
 
     public Student(StudentRequestDTO data) {
         this.name = data.name();
